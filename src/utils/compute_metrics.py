@@ -127,9 +127,12 @@ def compute_eval_data_ratio(training_df, evaluation_df):
     ratio_df = training_stats_df.join(eval_stats_df)
 
     # compute ratios
-    
+    ratio_df['mean_sales_ratio'] = ratio_df['mean_eval_sales'] / ratio_df['mean_train_sales']
+    ratio_df['stdev_sales_ratio'] = ratio_df['stdev_eval_sales'] / ratio_df['stdev_train_sales']
 
     # take average of ratios across series
+    mean_sales_ratio = ratio_df['mean_sales_ratio'].mean()
+    stdev_sales_ratio = ratio_df['stdev_sales_ratio'].mean()
     
 
     return mean_sales_ratio, stdev_sales_ratio

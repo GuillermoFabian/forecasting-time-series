@@ -33,7 +33,8 @@ logger.propagate = False
 
 try:
     # read in training data
-    
+    dataprocessor = DataProcessor()
+    training_df, validation_df, test_df = dataprocessor.get_data_for_training()
     logger.info("Training: data for training obtained")
 
     # pass data to model

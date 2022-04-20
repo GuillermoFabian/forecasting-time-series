@@ -51,15 +51,23 @@ try:
 
     with mlflow.start_run(experiment_id = experiment.experiment_id):
         # log date as param so as to visualize metrics by date
-        
+        mlflow.log_param('date', datetime.now().strftime("%Y-%m-%d"))
 
         # compute model metrics
-       
+        wmae = compute_wmae(training_df, evaluation_df, 'sales', 'pred')
+        wmape = compute_wmape(training_df, evaluation_df, 'sales', 'pred')
+        logger.info("Evaluation: model metrics computed")
 
         # compute data metrics
-        
+        mean_ratio, stdev_ratio = compute_eval_data_ratio(training_df, evaluation_df)
+        logger.info("Evaluation: data metrics computed")
 
         # log metrics
+        mlflow.log_metric('wmae', wmae)
+        mlflow.log_metric('wmape', wmape)
+        mlflow.log_metric('mean_ratio', mean_ratio)
+        mlflow.log_metric('stdev_ratio', stdev_ratio)
+        logger.info("Evaluation: all metrics logged")
         
 
 except Exception:

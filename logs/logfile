@@ -1,0 +1,61 @@
+2022-04-20 14:33:49,515 __main__ INFO:Evaluation: data for evaluation obtained
+2022-04-20 14:33:50,322 __main__ ERROR:Traceback (most recent call last):
+  File "eval.py", line 49, in <module>
+    mlflow.set_experiment(mlflow_eval_experiment_name)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/tracking/fluent.py", line 111, in set_experiment
+    experiment = client.get_experiment_by_name(experiment_name)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/tracking/client.py", line 462, in get_experiment_by_name
+    return self._tracking_client.get_experiment_by_name(name)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/tracking/_tracking_service/client.py", line 162, in get_experiment_by_name
+    return self.store.get_experiment_by_name(name)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/store/tracking/rest_store.py", line 342, in get_experiment_by_name
+    raise e
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/store/tracking/rest_store.py", line 328, in get_experiment_by_name
+    response_proto = self._call_endpoint(GetExperimentByName, req_body)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/store/tracking/rest_store.py", line 56, in _call_endpoint
+    return call_endpoint(self.get_host_creds(), endpoint, method, json_body, response_proto)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/utils/rest_utils.py", line 256, in call_endpoint
+    response = verify_rest_response(response, endpoint)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/utils/rest_utils.py", line 185, in verify_rest_response
+    raise RestException(json.loads(response.text))
+mlflow.exceptions.RestException: INVALID_PARAMETER_VALUE: An experiment name must be provided
+
+2022-04-20 14:34:25,331 __main__ INFO:Evaluation: data for evaluation obtained
+2022-04-20 14:34:26,307 __main__ ERROR:Traceback (most recent call last):
+  File "eval.py", line 49, in <module>
+    mlflow.set_experiment(mlflow_eval_experiment_name)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/tracking/fluent.py", line 120, in set_experiment
+    experiment_id = client.create_experiment(experiment_name)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/tracking/client.py", line 507, in create_experiment
+    return self._tracking_client.create_experiment(name, artifact_location, tags)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/tracking/_tracking_service/client.py", line 176, in create_experiment
+    return self.store.create_experiment(
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/store/tracking/rest_store.py", line 99, in create_experiment
+    response_proto = self._call_endpoint(CreateExperiment, req_body)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/store/tracking/rest_store.py", line 56, in _call_endpoint
+    return call_endpoint(self.get_host_creds(), endpoint, method, json_body, response_proto)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/utils/rest_utils.py", line 256, in call_endpoint
+    response = verify_rest_response(response, endpoint)
+  File "/Users/guillermofigueroa/miniconda3/lib/python3.8/site-packages/mlflow/utils/rest_utils.py", line 185, in verify_rest_response
+    raise RestException(json.loads(response.text))
+mlflow.exceptions.RestException: INVALID_PARAMETER_VALUE: Got an invalid experiment name 'forecasting-sales'. An experiment name must be an absolute path within the Databricks workspace, e.g. '/Users/<some-username>/my-experiment'.
+
+2022-04-20 14:35:06,768 __main__ INFO:Evaluation: data for evaluation obtained
+2022-04-20 14:35:09,570 __main__ INFO:Evaluation: model metrics computed
+2022-04-20 14:35:09,877 __main__ ERROR:Traceback (most recent call last):
+  File "eval.py", line 62, in <module>
+    mean_ratio, stdev_ratio = compute_eval_data_ratio(training_df, evaluation_df)
+  File "/Users/guillermofigueroa/Documents/Time_Series_Deep_Learning/workflow_files_3/forecasting_time_series/src/utils/compute_metrics.py", line 135, in compute_eval_data_ratio
+    return mean_sales_ratio, stdev_sales_ratio
+NameError: name 'mean_sales_ratio' is not defined
+
+2022-04-20 14:37:38,577 __main__ INFO:Evaluation: data for evaluation obtained
+2022-04-20 14:37:40,712 __main__ INFO:Evaluation: model metrics computed
+2022-04-20 14:37:40,717 __main__ INFO:Evaluation: data metrics computed
+2022-04-20 14:37:41,791 __main__ INFO:Evaluation: all metrics logged
+2022-04-20 14:40:38,131 __main__ INFO:Evaluation: data for evaluation obtained
+2022-04-20 14:40:41,210 __main__ INFO:Evaluation: model metrics computed
+2022-04-20 14:40:41,215 __main__ INFO:Evaluation: data metrics computed
+2022-04-20 14:40:42,292 __main__ INFO:Evaluation: all metrics logged
+2022-04-20 14:59:41,291 __main__ INFO:Training: data for training obtained
+2022-04-20 15:01:23,874 __main__ INFO:Training: model training completed
