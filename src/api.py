@@ -45,11 +45,35 @@ def get_predictions(start: Optional[datetime.date] = None, end: Optional[datetim
     start_time = time.time()
     dataprocessor = DataProcessor()
 
-    # logic to read relevant predictions data based on query parameters
-    
+    distinct_on_query_part = "distinct on (store_id, cat_id, date)"
+    order_by_query_part = "order by store_id, cat_id, date, creation_time desc"
 
 
-    # convert dataframe to JSON to serve data
+    if start is None and end is not None:
+        predictions_df = dataprocessor.read_from_db(
+            f"select {distinct_on_query_part} * from prediction where date <= '{end}' {order_by_query_part}",
+            parse_dates=['date', 'creation_time'])
+    elif start is not None and end is None:
+        predictions_df = dataprocessor.read_from_db(
+            f"select {distinct_on_query_part} * from prediction where date >= '{start}' {order_by_query_part}",
+            parse_dates=['date', 'creation_time'])
+    elif start is not None and end is not None:
+        predictions_df = dataprocessor.read_from_db(
+            f"select {distinct_on_query_part} * from prediction where date between '{start}' and '{end}' {order_by_query_part}",
+            parse_dates=['date', 'creation_time'])
+    else:
+        predictions_df = dataprocessor.read_from_db(
+            f"select {distinct_on_query_part} * from prediction {order_by_query_part} limit 100",
+            parse_dates=['date', 'creation_time'])
+
+    if category is not None:
+        predictions_df = predictions_df.loc[predictions_df.cat_id == category]
+
+    if store is not None:
+        predictions_df = predictions_df.loc[predictions_df.store_id == store]
+
+    result = predictions_df.to_json(orient="table", index=False)
+    parsed = json.loads(result)
     
 
     logger.info(f"time taken: {time.time()-start_time}")

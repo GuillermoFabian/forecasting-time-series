@@ -33,17 +33,26 @@ logger.propagate = False
 
 
 try:
-    # read in data for making prediction
-    
-    
+    try:
+        # read in data for making prediction
+        dataprocessor = DataProcessor()
+        df_for_prediction = dataprocessor.get_data_for_prediction()
+        logger.info("Prediction: data for prediction obtained")
 
-    # pass data to model
-    
+        # pass data to model
+        model = NBeatsModel()
+        predictions_df = model.predict(df_for_prediction)
+        logger.info("Prediction: predictions made")
+
+        # write predictions to db
+        dataprocessor.write_to_db(predictions_df, 'prediction')
+        logger.info("Prediction: predictions written to database")
+
+    except Exception:
+        logger.error(traceback.format_exc())
 
 
-    # write predictions to db
-    
-    
+
 
 except Exception:
     logger.error(traceback.format_exc())
